@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8083/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: authModule
+          uri: http://localhost:9080
+          predicates:
+            - Path=/auth/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: fallbackCommand
+                fallbackUri: forward:/fallback
+        - id: frontendModule
+          uri: lb://FRONTEND-SERVICE
+          predicates:
+            - Path=/frontend/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: fallbackCommand
+                fallbackUri: forward:/fallback
+        - id: employeeModule
+          uri: lb://FIRST-SERVICE
+          predicates:
+            - Path=/employee/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: fallbackCommand
+                fallbackUri: forward:/fallback
+            - NotFoundFilter
+        - id: consumerModule
+          uri: lb://SECOND-SERVICE
+          predicates:
+            - Path=/consumer/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: fallbackCommand
+                fallbackUri: forward:/fallback
+            - NotFoundFilter
+        - id: fallbackRoute
+          uri: forward:/fallback
+          predicates:
+            - Path=/**
+management:
+  tracing:
+    sampling:
+      probability: 1.0
