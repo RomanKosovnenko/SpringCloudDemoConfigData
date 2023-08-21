@@ -54,7 +54,7 @@ spring:
         - id: gatewayHealthRoute
           predicates:
             - Path=/actuator/**
-          uri: lb://GATEWAY-SERVICE
+          uri: /actuator/**
           filters:
             - StripPrefix=1
         - id: fallbackRoute
