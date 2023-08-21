@@ -53,10 +53,10 @@ spring:
               args:
                 name: fallbackCommand
                 fallbackUri: forward:/fallback
-        # - id: fallbackRoute
-        #   uri: forward:/fallback
-        #   predicates:
-        #     - Path=/**
+        - id: fallbackRoute
+          uri: forward:/fallback
+          predicates:
+            - Path=/**
 management:
   endpoints:
     web:
