@@ -55,8 +55,8 @@ spring:
             - NotFoundFilter
         - id: gatewayHealthRoute
           predicates:
-            - Path=/actuator/health
-          uri: forward:/actuator/health
+            - Path=/actuator/**
+          uri: forward:/actuator/**
           filters:
             - StripPrefix=1
         - id: fallbackRoute
