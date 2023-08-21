@@ -5,6 +5,10 @@ eureka:
     serviceUrl:
       defaultZone: http://discovery-service:8083/eureka
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health
   tracing:
     sampling:
       probability: 1.0

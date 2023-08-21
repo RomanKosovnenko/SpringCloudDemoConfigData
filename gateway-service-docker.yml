@@ -62,6 +62,10 @@ spring:
           predicates:
             - Path=/**
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health
   tracing:
     sampling:
       probability: 1.0
