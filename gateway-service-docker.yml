@@ -57,6 +57,8 @@ spring:
           predicates:
             - Path=/actuator/health
           uri: forward:/actuator/health
+          filters:
+            - StripPrefix=1
         - id: fallbackRoute
           uri: forward:/fallback
           predicates:
