@@ -11,10 +11,9 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      actuator:
-        enabled: true
-        exclude: /fallback
       discovery:
+        actuator:
+          enabled: true
         locator:
           enabled: true
       routes:
@@ -62,7 +61,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: "*"
   tracing:
     sampling:
       probability: 1.0
