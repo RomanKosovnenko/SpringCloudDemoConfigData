@@ -42,7 +42,6 @@ spring:
               args:
                 name: fallbackCommand
                 fallbackUri: forward:/fallback
-            - NotFoundFilter
         - id: consumerModule
           uri: lb://SECOND-SERVICE
           predicates:
@@ -52,11 +51,10 @@ spring:
               args:
                 name: fallbackCommand
                 fallbackUri: forward:/fallback
-            - NotFoundFilter
         - id: gatewayHealthRoute
           predicates:
             - Path=/actuator/**
-          uri: forward:/actuator/**
+          uri: lb://GATEWAY-SERVICE
           filters:
             - StripPrefix=1
         - id: fallbackRoute
