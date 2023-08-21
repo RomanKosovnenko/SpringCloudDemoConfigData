@@ -13,6 +13,7 @@ spring:
     gateway:
       actuator:
         enabled: true
+        exclude: /fallback
       discovery:
         locator:
           enabled: true
