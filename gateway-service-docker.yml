@@ -53,6 +53,10 @@ spring:
                 name: fallbackCommand
                 fallbackUri: forward:/fallback
             - NotFoundFilter
+        - id: gatewayHealthRoute
+          predicates:
+            - Path=/actuator/health
+          uri: forward:/actuator/health
         - id: fallbackRoute
           uri: forward:/fallback
           predicates:
