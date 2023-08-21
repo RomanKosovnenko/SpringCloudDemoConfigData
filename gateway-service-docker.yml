@@ -11,6 +11,8 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      actuator:
+        enabled: true
       discovery:
         locator:
           enabled: true
@@ -51,12 +53,6 @@ spring:
               args:
                 name: fallbackCommand
                 fallbackUri: forward:/fallback
-        - id: gatewayHealthRoute
-          predicates:
-            - Path=/actuator/**
-          uri: /actuator/**
-          filters:
-            - StripPrefix=1
         - id: fallbackRoute
           uri: forward:/fallback
           predicates:
